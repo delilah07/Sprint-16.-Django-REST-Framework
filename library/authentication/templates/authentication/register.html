@@ -1,0 +1,99 @@
+
+{% extends "base.html" %}
+
+{% block title %}Register | Library{% endblock %}
+
+{% block content %}
+<section class="auth-section register-section">
+    <div class="auth-card">
+        <div class="auth-heading">
+            <span class="eyebrow">BECOME A MEMBER</span>
+            <h1>Join the library<span class="brand-dot">.</span></h1>
+            <p>Create your account and discover your next favourite book.</p>
+        </div>
+
+        {% if form.errors %}
+            <div class="message message-error">
+                <ul class="form-errors">
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    {% endfor %}
+
+                    {% for error in form.non_field_errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+
+        <form method="post" class="auth-form">
+            {% csrf_token %}
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="{{ form.first_name.id_for_label }}">First name</label>
+                    {{ form.first_name }}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.last_name.id_for_label }}">Last name</label>
+                    {{ form.last_name }}
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.middle_name.id_for_label }}">
+                    Middle name <span class="optional-label">(optional)</span>
+                </label>
+                {{ form.middle_name }}
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.email.id_for_label }}">Email address</label>
+                {{ form.email }}
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="{{ form.password.id_for_label }}">Password</label>
+                    {{ form.password }}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.password_confirm.id_for_label }}">Confirm password</label>
+                    {{ form.password_confirm }}
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="{{ form.role.id_for_label }}">Register as</label>
+                {{ form.role }}
+            </div>
+
+            <button class="button button-large auth-submit" type="submit">
+                Create account <span aria-hidden="true">→</span>
+            </button>
+        </form>
+
+        <p class="auth-switch">
+            Already have an account?
+            <a href="{% url 'login' %}">Log in</a>
+        </p>
+    </div>
+
+    <aside class="auth-aside">
+        <span class="auth-aside-mark">✦</span>
+        <h2>Your next chapter starts here.</h2>
+        <p>
+            Explore stories, meet authors, and keep your reading organised.
+        </p>
+        <div class="auth-aside-decoration" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </aside>
+</section>
+{% endblock %}
